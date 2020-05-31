@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.scss';
+
+import { getSettings } from './redux/settings';
+import FormDifficultyGame from './Components/Form';
+import PlayBoard from './Components/PlayBoard';
+import BoardWinners from './Components/BordWiners';
+
+
+class App extends Component {
+
+  componentDidMount = () => this.props.getSettings()
+
+  render() {
+    return (
+      <div className="main-content">
+        <div className="main-content__left-part">
+          <FormDifficultyGame />
+          <PlayBoard />
+        </div>
+        <div className="main-content__left-part">
+          <BoardWinners />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapDispatchToProps = {
+  getSettings
+}
+
+export default connect(null, mapDispatchToProps)(App);
